@@ -11,7 +11,7 @@ let checkSize (arg: string) =
         | l when l = 11 -> Some(arg)
         | _ -> None
 
-let isValidArgument arg = removeMask arg |> checkSize
+let isValidArgument = removeMask >> checkSize
 
 let firstDigitArray = [| 2 .. 10 |] |> Array.rev
 let secondDigitArray = [| 2 .. 11 |] |> Array.rev
