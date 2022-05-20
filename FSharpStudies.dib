@@ -1,0 +1,253 @@
+#!markdown
+
+Option/Maybe
+
+#!fsharp
+
+open System
+let tryParseInt (input:string) =
+    let (success, result) = Int32.TryParse(input)
+    if success then Some result else None
+
+let output = tryParseInt "32"
+printf "%A" output
+
+#!markdown
+
+Computed Expression
+
+#!fsharp
+
+type LoggingBuilder() =
+    let log p = printfn "expresion is %A" p
+
+    member this.Bind(x, f) =
+        log x
+        f x
+
+    member this.Return(x) = x
+
+let logger = LoggingBuilder()
+
+let loggedWorkflow =
+    logger {
+        let! x = 42
+        let! y = 43
+        let! z = x + y
+        return z
+    }
+
+loggedWorkflow
+
+#!markdown
+
+Disposable
+
+#!fsharp
+
+let makeResource name =
+    { new System.IDisposable with
+        member this.Dispose() = printfn "%s disposed" name }
+
+let exampleUseBinding name =
+    use myResource = makeResource name
+    printfn "done"
+
+exampleUseBinding "hello"
+
+let usingResource name callback =
+    use myResource = makeResource name
+    callback makeResource
+    printfn "done"
+
+let callback aReosurce = printfn "Ressource is %A" aReosurce
+do usingResource "hello" callback
+
+using (makeResource "hello") callback
+
+#!markdown
+
+Expressions
+
+#!fsharp
+
+let lambda = fun () -> 1
+
+printfn "%A" lambda
+
+let matchSample =
+    match 1 with
+    | 1 -> "a"
+    | _ -> "b"
+
+printfn "%A" matchSample
+
+let ifElse = if true then "a" else "b"
+
+printfn "%A" ifElse
+
+let forLoop =
+    for i in [ 1 .. 10 ] do
+        printfn "%i" i
+
+forLoop
+
+let tryBlock =
+    try
+        let result = 1 / 0
+        printfn "%i" result
+    with
+    | e -> printfn "%s" e.Message
+
+tryBlock
+
+let n = 1 in
+n + 2 |> ignore
+
+printfn "%A" n
+
+#!markdown
+
+LINQ
+
+#!fsharp
+
+let sample = [| 1 .. 100 |]
+
+let primeNumbers =
+    query {
+        for number in sample do
+            where (number % 2 = 0)
+            select number
+    }
+
+printfn "%A" primeNumbers
+
+#!markdown
+
+MaybeBuilder
+
+#!fsharp
+
+type MaybeBuilder() =
+    member this.Bind(x, f) =
+        match x with
+        | None -> None
+        | Some a -> f a
+
+    member this.Return(x) = Some x
+
+let maybe = MaybeBuilder()
+
+let divideBy bottom top =
+    if bottom = 0 then
+        None
+    else
+        Some(top / bottom)
+
+let divideByWorkflow init x y z =
+    maybe {
+        let! a = init |> divideBy x
+        let! b = a |> divideBy y
+        let! c = b |> divideBy z
+        return c
+    }
+
+let good = divideByWorkflow 12 3 2 1
+let bad = divideByWorkflow 12 3 0 1
+
+printfn "good: %A" good
+printfn "bad: %A" bad
+
+#!markdown
+
+Just a Sample
+
+#!fsharp
+
+module Sample1 =
+    let sampleFunction x = x * x + 3
+
+    let result = sampleFunction 134
+    printfn "Result 1: %d" result
+
+    let sampleFunction2 (x: int) = 2 * x * x - x / 5 + 3
+
+    let result2 = sampleFunction2 (7 + 4)
+    printfn $"Result 2: {result2}"
+
+    let sampleFunction3 x =
+        if x < 100.0 then
+            2.0 * x * x - x / 5.0 + 3.0
+        else
+            2.0 * x * x + x / 5.0 - 37.0
+
+    let result3 = sampleFunction3 (6.5 + 4.5)
+    printfn $"Result 3: %f{result3}"
+
+#!markdown
+
+CPF validator
+
+#!fsharp
+
+open System
+
+let args = "222.222.222-22"
+
+let removeMask (arg: string) = arg.Replace(".", "").Replace("-", "")
+
+let checkSize (arg: string) =
+    arg
+    |> String.length
+    |> function
+        | l when l = 11 -> Some(arg)
+        | _ -> None
+
+let isValidArgument = removeMask >> checkSize
+
+let firstDigitArray = [| 2 .. 10 |] |> Array.rev
+let secondDigitArray = [| 2 .. 11 |] |> Array.rev
+
+let stringToNumbers (arg: string) =
+    Array.map (fun c -> Int32.Parse(c.ToString())) (arg.ToCharArray())
+
+let sumOfProducts values numbersValidator =
+    Array.map2 (*) values numbersValidator
+    |> Array.sum
+
+let mult10 value = value * 10
+
+let rest11 value =
+    value % 11 |> fun x -> if x >= 10 then 0 else x
+
+let numberCalculation values numberValidation =
+    sumOfProducts values numberValidation
+    |> mult10
+    |> rest11
+
+let doValidation (cpf: int []) =
+    let cpf1 = Array.take 9 cpf
+    let cpf2 = Array.take 10 cpf
+    let firstDigit = cpf.[9]
+    let secondDigit = cpf.[10]
+
+    let resultFirstDigit = numberCalculation cpf1 firstDigitArray
+    let resultSecondDigit = numberCalculation cpf2 secondDigitArray
+
+    let isCpfvalid =
+        firstDigit = resultFirstDigit
+        && secondDigit = resultSecondDigit
+
+    isCpfvalid
+
+let isValid = isValidArgument args
+
+let cleanData = removeMask >> stringToNumbers
+
+let processCpf isValidCpf cpf =
+    match isValidCpf with
+    | Some v -> doValidation (cleanData cpf)
+    | None -> false
+
+printfn "%A" (processCpf isValid args)
