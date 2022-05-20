@@ -2,6 +2,27 @@
 
 Option/Maybe
 
+#!markdown
+
+Collections
+
+#!fsharp
+
+let array = [|1;2;3|];
+printfn "Array: %A" array 
+
+let list = [1;2;3];
+printfn "List: %A" list
+
+let map = Map [(1, "a"); (2, "b"); (3, "c")]
+printfn "Map: %A" map
+
+let seq = [|1..5|] :> seq<int>
+printfn "Seq: %A" seq
+
+let set = Set.empty.Add(1).Add(2).Add(3)
+printfn "Set: %A" set
+
 #!fsharp
 
 open System
