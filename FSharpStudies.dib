@@ -1,6 +1,16 @@
 #!markdown
 
-Option/Maybe
+HTTP requests
+
+#!fsharp
+
+#r "nuget: FSharp.Data, 4.2.8"
+open FSharp.Data
+
+let response = Http.RequestString("http://httpbin.org/get",
+    query=["test", "foo"], httpMethod="GET")
+
+printf "%A" response
 
 #!markdown
 
@@ -39,6 +49,10 @@ printfn "Seq: %A" seq
 
 let set = Set.empty.Add(1).Add(2).Add(3)
 printfn "Set: %A" set
+
+#!markdown
+
+Option/Maybe
 
 #!fsharp
 
