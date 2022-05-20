@@ -4,6 +4,23 @@ Option/Maybe
 
 #!markdown
 
+Records
+
+#!fsharp
+
+open System
+type MyRecord = { Test1: int; Test2: string; Test3: DateTime}
+
+let test = { Test1 = 1; Test2 = "Test"; Test3 = DateTime.Now }
+
+printfn "%A" test
+
+let test2 = { test with Test1 = 2; }
+
+printfn "%A" test2
+
+#!markdown
+
 Collections
 
 #!fsharp
