@@ -1,5 +1,25 @@
 #!markdown
 
+Interoperation with .NET libraries
+
+#!fsharp
+
+let (isSuccess1, result1) = Int32.TryParse "123"
+printfn "%A %A" isSuccess1 result1
+
+let (isSuccess2, result2) = Int32.TryParse "aaa"
+printfn "%A %A" isSuccess2 result2
+
+let (isSuccess3, result3) = DateTime.TryParse "2001-01-01"
+printfn "%A %A" isSuccess3 result3
+
+let dictionary = new Collections.Generic.Dictionary<string, string>();
+dictionary.Add("a", "b")
+let (isSuccess4, result4) = dictionary.TryGetValue "a"
+printfn "%A %A" isSuccess4 result4
+
+#!markdown
+
 HTTP requests
 
 #!fsharp
