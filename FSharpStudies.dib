@@ -1,5 +1,18 @@
 #!markdown
 
+String palindrome
+
+#!fsharp
+
+let isPalindorme str = 
+    let result = str |> Seq.filter ((<>) ' ') |> Seq.toList
+    result = (result |> List.rev)
+
+["abc ba"; "abcba"; "a"; "aaba"; ""]
+|> List.map (fun x -> x, isPalindorme x)
+
+#!markdown
+
 Interoperation with .NET libraries
 
 #!fsharp
