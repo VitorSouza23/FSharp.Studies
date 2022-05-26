@@ -191,6 +191,12 @@ n + 2 |> ignore
 
 printfn "%A" n
 
+let notEqual = (<>) 1 2
+printfn "%A" notEqual
+
+let calculation = (*) ((-) 5 7) ((+) 1 2)
+printfn "%A" calculation
+
 #!markdown
 
 LINQ
