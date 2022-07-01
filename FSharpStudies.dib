@@ -342,3 +342,67 @@ let processCpf isValidCpf cpf =
     | None -> false
 
 printfn "%A" (processCpf isValid args)
+
+#!markdown
+
+Match expressions
+
+#!fsharp
+
+let list1 = [1; 5; 100; 450; 788]
+
+let rec printList listx =
+    match listx with
+    | head :: tail -> printf "%d " head; printList tail
+    | [] -> printfn ""
+
+printList list1
+
+let filter123 x =
+    match x with
+    | 1 | 2 | 3 -> printfn "Found 1, 2 or 3!"
+    | a -> printfn "%d" a
+
+filter123 1
+filter123 4
+
+let filterNumber =
+    function | 4 | 5 | 6 -> printfn "Found 4, 5 or 6!"
+             | a -> printfn "%d" a
+
+filterNumber 4
+filterNumber 8
+
+let rangeTest testValue mid size =
+    match testValue with
+    | var1 when var1 >= mid - size/2 && var1 <= mid + size/2 -> printfn "The test value is in range"
+    | _ -> printfn "The test value is out of range"
+
+rangeTest 10 20 5
+rangeTest 10 20 5
+rangeTest 10 20 40
+
+let detectValue point target =
+    match point with
+    | (a, b) when a = target && b = target -> printfn "Both values match target %d" target
+    | (a, b) when a = target -> printfn "First value matched target in (%d, %d)" target b
+    | (a, b) when b = target -> printfn "Second value matched target in (%d, %d)" a target
+    | _ -> printfn "Neither value matches target"
+
+detectValue (0, 0) 0
+detectValue (1, 0) 0
+detectValue (0, 10) 0
+detectValue (10, 15) 0
+
+type Union = 
+    | A of int
+    | B of int
+
+let foo() =
+    let test = A 42
+    match test with
+    | A a
+    | B a when a > 41 -> a//the guard applies to both patters
+    | _ -> 1
+
+foo()
