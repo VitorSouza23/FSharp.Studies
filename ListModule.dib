@@ -1,0 +1,103 @@
+#!markdown
+
+List Module
+
+#!fsharp
+
+//allPairs
+let people  = ["Kirk"; "Spock"; "McCoy"]
+let numbers = [1; 2]
+
+people |> List.allPairs numbers
+
+#!fsharp
+
+//append
+
+List.append [1..3] [4..7]
+[4..7] |> List.append [1..3]
+
+#!fsharp
+
+//average
+[1.0 .. 9.0] |> List.average
+
+#!fsharp
+
+//averageBy
+
+type People = { Name: string; Age: int}
+
+let getAgeAsFloat person = float person.Age
+
+let people =
+    [
+        { Name = "Kirk"; Age = 26 }
+        { Name = "Spock"; Age = 90 }
+        { Name = "MacCoy"; Age = 37 }
+    ]
+
+people |> List.averageBy getAgeAsFloat
+
+#!fsharp
+
+//choose
+
+let input1 = [Some 1; None; Some 3; None]
+input1 |> List.choose id
+
+#!fsharp
+
+//chunkBySize
+
+[ 1..10 ] |> List.chunkBySize 3
+[ 1..5 ] |> List.chunkBySize 10
+
+#!fsharp
+
+//collect
+
+[ 1..4 ] |> List.collect (fun x -> [1..x])
+
+#!fsharp
+
+//compareWith
+
+let closerToNexDozen a b = 
+    (a % 12).CompareTo(b % 12)
+
+let input1 = [1; 11]
+let input2 = [1; 13]
+
+(input1, input2) ||> List.compareWith closerToNexDozen
+
+#!fsharp
+
+//concat
+
+let input = [   [1; 2]
+                [3; 4;5]
+                [6; 7; 8; 9] ]
+
+input |> List.concat
+
+#!fsharp
+
+//contais
+
+[1..9] |> List.contains 3
+
+#!fsharp
+
+//countBy
+
+let input = ['H'; 'a'; 'p'; 'p'; 'y']
+
+input |> List.countBy id
+
+#!fsharp
+
+//distinct
+
+let input = [6;1;2;3;1;4;5;5]
+input |> List.distinct
