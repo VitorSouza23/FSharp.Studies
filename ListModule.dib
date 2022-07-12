@@ -101,3 +101,49 @@ input |> List.countBy id
 
 let input = [6;1;2;3;1;4;5;5]
 input |> List.distinct
+
+#!fsharp
+
+//distinctBy
+let isEven x = 0 = x % 2
+
+let input = [6;1;2;3;1;4;5;5]
+
+input |> List.distinctBy isEven
+
+#!fsharp
+
+//empty
+
+let input = List.empty
+
+#!fsharp
+
+//exactlyOne
+
+["the chosen one"] |> List.exactlyOne
+
+#!fsharp
+
+//except
+
+let input = [1, "Kirk"; 2, "Spock"; 3, "Kenobi"]
+
+input |> List.except [3, "Kenobi"]
+
+#!fsharp
+
+//exists
+
+let input = [1, "Kirk"; 2, "Spock"; 3, "Kenobi"]
+
+input |> List.exists (fun x -> x = (3, "Kenobi"))
+input |> List.exists (fun (n, name) -> n > 2)
+
+#!fsharp
+
+//exists2
+let anEvenSum a b = 0 = (a + b) % 2
+
+([1..4], [2..5])
+||> List.exists2 anEvenSum

@@ -406,3 +406,12 @@ let foo() =
     | _ -> 1
 
 foo()
+
+#!markdown
+
+Tuples inside Lists
+
+#!fsharp
+
+let input = [1, "test"; 2, "sample"]
+input
