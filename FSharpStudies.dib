@@ -415,3 +415,13 @@ Tuples inside Lists
 
 let input = [1, "test"; 2, "sample"]
 input
+
+#!markdown
+
+Pipes 
+
+#!fsharp
+
+let sum x y = x + y
+
+1 |> sum <| 2
