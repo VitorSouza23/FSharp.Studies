@@ -1,0 +1,94 @@
+#!fsharp
+
+[<Measure>] type cm
+[<Measure>] type inch
+
+let x = 1<cm>
+let y = 1.0<cm>
+let z = 1.0m<cm>
+
+#!fsharp
+
+[<Measure>] type m
+[<Measure>] type sec
+[<Measure>] type kg
+
+let distance = 1.0<m>
+let time = 2.0<sec>
+let speed = 2.0<m/sec>
+let acceleration = 2.0<m/sec^2>
+let force = 5.0<kg m/sec^2>
+
+#!fsharp
+
+[<Measure>] type N = kg m/sec^2
+
+let force1 = 5.0<kg m/sec^2>
+let force2 = 5.0<N>
+
+force1 = force2
+
+#!fsharp
+
+open Microsoft.FSharp.Data.UnitSystems.SI
+
+let a = 1<UnitSymbols.F>
+
+#!fsharp
+
+[<Measure>] type foot
+[<Measure>] type inch
+
+let distance = 3.0<foot>
+
+let distance2 = distance * 2.0
+
+let addThreeFeet ft = ft + 3.0<foot>
+
+addThreeFeet 1.0<foot>
+
+#!fsharp
+
+let footTimesThree (ft:float<foot>) = ft * 3.0
+
+#!fsharp
+
+[<Measure>] type m
+[<Measure>] type sec
+[<Measure>] type kg
+
+let distance = 1.0<m>
+let time = 2.0<sec>
+let speed = distance/time
+let acceleration = speed/time
+let mass = 5.0<kg>
+let force = mass * speed/time
+
+#!fsharp
+
+let x = 42
+let y = 42<1>
+
+#!fsharp
+
+3.0<foot> + 2.0<foot>
+3.0<foot> * 2.0
+
+#!fsharp
+
+[<Measure>] type foot
+[<Measure>] type inch
+
+//conversion factor
+let inchesPerFoot = 12.0<inch/foot>
+
+let distanceInFeet = 3.0<foot>
+distanceInFeet * inchesPerFoot
+
+#!fsharp
+
+[<Measure>] type degC
+[<Measure>] type degF
+
+let convertDegCToF (c: float<degC>) = c * 1.8<degF/degC> + 32.0<degF>
+convertDegCToF 0.0<degC>
