@@ -425,3 +425,12 @@ Pipes
 let sum x y = x + y
 
 1 |> sum <| 2
+
+#!markdown
+
+Array concat
+
+#!fsharp
+
+let arr = [|[|1;2;3|]; [|4;5;6|]|]
+let arr1 = arr |> Array.concat
