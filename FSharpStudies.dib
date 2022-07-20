@@ -441,15 +441,16 @@ Caesar's cipher
 
 #!fsharp
 
-let mapChar (top: int) (botton: int) (k: int) (c: char) =  
+let mapChar (top: int) (botton: int) (k: int) (c: char) =
+    let k2 = (k % 26)
     c 
     |> int
     |> function
-        | i when i >= top && i <= botton -> if i + k > botton then char ((i + k) - botton + top - 1) else char (i + k)
+        | i when i >= top && i <= botton -> if i + k2 > botton then char ((i + k2) - botton + top - 1) else char (i + k2)
         | _ -> c
 
 let str = "www.abc.xy"
-let k = 3
+let k = 85
 let newSrt = 
     str
     |> Seq.map (fun x -> mapChar (int 'a') (int 'z') k x)
