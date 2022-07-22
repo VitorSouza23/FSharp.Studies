@@ -456,3 +456,14 @@ let newSrt =
     |> Seq.map (fun x -> mapChar (int 'a') (int 'z') k x)
     |> Seq.map (fun x -> mapChar (int 'A') (int 'Z') 3 x)
     |> String.Concat
+
+#!markdown
+
+Generic suffix
+
+#!fsharp
+
+let a: int list = List.empty
+let b: int seq = Seq.empty
+let c: int option = Some 1
+let d: int[] = Array.empty 
