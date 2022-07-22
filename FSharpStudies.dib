@@ -466,4 +466,12 @@ Generic suffix
 let a: int list = List.empty
 let b: int seq = Seq.empty
 let c: int option = Some 1
-let d: int[] = Array.empty 
+let d: int[] = Array.empty
+
+let concatLists (x: 'a list) (y: 'a list) = 
+    List.concat [x; y]
+
+let e = [1..5]
+let f = [6..10]
+
+let g = concatLists e f
