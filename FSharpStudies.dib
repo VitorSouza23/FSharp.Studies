@@ -479,3 +479,23 @@ let e = [1..5]
 let f = [6..10]
 
 let g = concatLists e f
+
+#!markdown
+
+Anonymous Records
+
+#!fsharp
+
+open System.Text.Json
+
+let r = {| Name = "Test"; Code = 102 |}
+printfn "%A" r
+
+let r1 = {| r with Name = "Test 2"; Value = 12.3 |}
+printfn "%A" r1
+
+let j = JsonSerializer.Serialize(r1)
+printfn "%s" j
+
+let j' = JsonSerializer.Deserialize<{| Name: string; Code: int; Value: double |}>(j)
+printfn "%A" j'
