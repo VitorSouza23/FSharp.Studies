@@ -77,11 +77,15 @@ printfn "List: %A" list
 let map = Map [(1, "a"); (2, "b"); (3, "c")]
 printfn "Map: %A" map
 
-let seq = [|1..5|] :> seq<int>
-printfn "Seq: %A" seq
+let seq1 = [|1..5|] :> seq<int>
+printfn "Seq: %A" seq 
 
 let set = Set.empty.Add(1).Add(2).Add(3)
 printfn "Set: %A" set
+
+let arr = [|
+    for x in 0..2..10 -> x
+    |]
 
 #!markdown
 
