@@ -499,3 +499,17 @@ printfn "%s" j
 
 let j' = JsonSerializer.Deserialize<{| Name: string; Code: int; Value: double |}>(j)
 printfn "%A" j'
+
+#!markdown
+
+QuickSort
+
+#!fsharp
+
+let rec quicksort = function
+    | [] -> []
+    | first::rest -> 
+        let smaller,larger = List.partition ((>=) first) rest
+        List.concat [quicksort smaller; [first]; quicksort larger]
+
+let result = quicksort [1;5;23;18;9;1;3]
