@@ -180,3 +180,15 @@ let input = [1, "Luke"; 2, "Kirk"; 3, "Spock"; 4, "Kenobi"]
 
 input |> List.findBack (fun (x, _) -> isEven x) 
 input |> List.findBack (fun (x, _) -> x |> isGraterThan 6)
+
+#!fsharp
+
+//findIndex
+
+let isEven x = 0 = x % 2
+let isGraterThan x y = x > y
+
+let input = [1, "Luke"; 2, "Kirk"; 3, "Spock"; 4, "Kenobi"]
+
+input |> List.findIndex (fun (x, _) -> isEven x) 
+input |> List.findIndex (fun (x, _) -> x |> isGraterThan 6)
