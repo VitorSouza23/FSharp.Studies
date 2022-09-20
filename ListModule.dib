@@ -237,3 +237,9 @@ let inputs2 = [Tails; Head; Head]
     | Head, Head -> acc + 1
     | Tails, Tails -> acc + 1
     | _ -> acc - 1)
+
+#!fsharp
+
+//foldBack
+
+([1..5], 0) ||> List.foldBack (fun v acc -> acc + v * v)
