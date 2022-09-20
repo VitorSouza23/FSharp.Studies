@@ -222,3 +222,18 @@ let takeMore (previous: BagItem list) fruit =
 
 let inputs = [Apple; Pear; Orange]
 ([], inputs) ||> List.fold takeMore
+
+#!fsharp
+
+//fold2
+
+type CoinToss = Head | Tails
+
+let inputs1 = [Tails; Head; Tails]
+let inputs2 = [Tails; Head; Head]
+
+(0, inputs1, inputs2) |||> List.fold2 (fun acc input1 input2 -> 
+    match (input1, input2) with
+    | Head, Head -> acc + 1
+    | Tails, Tails -> acc + 1
+    | _ -> acc - 1)
