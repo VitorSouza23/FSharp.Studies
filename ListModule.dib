@@ -299,3 +299,11 @@ let inputs2 = [1;2;3]
 
 let inputs = [1;2;3;4;5]
 inputs |> List.groupBy (fun n -> n % 2)
+
+#!fsharp
+
+//head
+
+let inputs = ["banana", "pear"]
+
+inputs |> List.head
