@@ -243,3 +243,35 @@ let inputs2 = [Tails; Head; Head]
 //foldBack
 
 ([1..5], 0) ||> List.foldBack (fun v acc -> acc + v * v)
+
+#!fsharp
+
+//foldBack2
+
+type Count =
+    {
+        Positive: int
+        Negative: int
+        Text: string
+    }
+
+let inputs1 = [-1; -2; -3]
+let inputs2 = [3; 2; 1]
+
+let initialState = {Positive = 0; Negative = 0; Text = ""}
+
+(inputs1, inputs2, initialState) |||> List.foldBack2 (fun a b acc -> 
+    let text = $"{acc.Text}({string a},{string b}) "
+    if a + b >= 0 then
+        {
+            acc with
+                Positive = acc.Positive + 1
+                Text = text
+        }
+    else
+        {
+            acc with
+                Negative = acc.Negative + 1
+                Text = text
+        }
+)
