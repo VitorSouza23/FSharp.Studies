@@ -292,3 +292,10 @@ let inputs1 = [1;2;3]
 let inputs2 = [1;2;3]
 
 (inputs1, inputs2) ||> List.forall2 (=)
+
+#!fsharp
+
+//groupBy 
+
+let inputs = [1;2;3;4;5]
+inputs |> List.groupBy (fun n -> n % 2)
