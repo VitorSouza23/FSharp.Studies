@@ -275,3 +275,11 @@ let initialState = {Positive = 0; Negative = 0; Text = ""}
                 Text = text
         }
 )
+
+#!fsharp
+
+//forall
+
+let isEven a = a % 2 = 0
+[2; 42] |> List.forall isEven
+[1; 2] |> List.forall isEven
