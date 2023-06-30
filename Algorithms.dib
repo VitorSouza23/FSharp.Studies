@@ -1,0 +1,24 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"fsharp","items":[{"aliases":[],"languageName":"fsharp","name":"fsharp"}]}}
+
+#!markdown
+
+Fibonacci
+
+#!fsharp
+
+module Fibonacci = 
+    let rec printSerie (one: int) (two: int): unit =
+        let fibo = one + two
+        printfn "%d" fibo
+        printSerie two fibo
+
+    let rec nthFibonaci (n: int): int =
+        match n with
+        | 0 -> 0
+        | 1 -> 1
+        | n -> nthFibonaci(n - 1) + nthFibonaci(n - 2)
+
+open Fibonacci
+nthFibonaci 4
